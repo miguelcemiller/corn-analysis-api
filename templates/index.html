@@ -1,15 +1,148 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
+<div class="container">
+  <div class="header-container">
+    <span>CROP ANALYSIS</span>
+    <span>Pumili sa mga sumusunod:</span>
+  </div>
 
-<form action="/" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/*">
-    <input type="submit" value="submit">
-</form>
+  <span class="subheader-container">Stage</span>
+  <div class="stages-container padding-content">
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>VE</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>V1</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>V3</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>V6</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>V9</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>VT</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>R1</span>
+    </div>
+    <div class="stage-icon-container icon-hover">
+      <img src="/static/images/assets/stage.svg" draggable="false" />
+      <span>R6</span>
+    </div>
+  </div>
+
+  <span class="subheader-container">Category</span>
+  <div class="categories-container padding-content">
+    <div class="category-icon-container icon-hover">
+      <img src="/static/images/assets/pest.svg" draggable="false" />
+      <span>Pest</span>
+    </div>
+    <div class="category-icon-container icon-hover">
+      <img src="/static/images/assets/nutrient.svg" draggable="false" />
+      <span>Nutrient</span>
+    </div>
+    <div class="category-icon-container icon-hover">
+      <img src="/static/images/assets/disease.svg" draggable="false" />
+      <span>Disease</span>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="hidden">
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="submit">
+    </form>
+    
+    <input class="camera-input hidden" type="file" accept="image/*" capture="capture">
+    
+    <button onclick="fetchJSON()">Fetch JSON from URL</button>
+</div> -->
 
 <script>
-    fetch('/api/pests')
-    .then(response => response.json())
-    .then(data => console.log(data))
+  // fetch('/api/pests')
+  // .then(response => response.json())
+  // .then(data => console.log(data))
+
+  // /* Mobile Detection */
+  // const cameraInput = document.getElementsByClassName("camera-input");
+
+  // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+  //     // mobile
+  //     cameraInput.classList.add("hidden");
+  // } else{
+  //     // Not mobile
+  //     //cameraInput.classList.remove("hidden");
+  // }
+
+  /* Toggle Icons */
+  const stageIcons = document.querySelectorAll(".stage-icon-container");
+  const categoryIcons = document.querySelectorAll(".category-icon-container");
+
+  const stageIconsListener = (icons) => {
+    icons.forEach((icon) => {
+      icon.addEventListener("click", () => {
+        // Reset all
+        icons.forEach((icon) => {
+          icon.classList.remove("icon-selected");
+          const iconImage = icon.querySelector("img");
+          iconImage.src = "/static/images/assets/stage.svg";
+          const iconSpan = icon.querySelector("span");
+          iconSpan.style.color = "#9BA29B";
+
+          icon.classList.add("icon-hover");
+        });
+
+        // Change one
+        icon.classList.add("icon-selected");
+        const iconImage = icon.querySelector("img");
+        iconImage.src = "/static/images/assets/stage-alt.svg";
+        const iconSpan = icon.querySelector("span");
+        iconSpan.style.color = "#5cca55";
+
+        icon.classList.remove("icon-hover");
+      });
+    });
+  };
+
+  const categoryIconsListener = (icons) => {
+    icons.forEach((icon) => {
+      icon.addEventListener("click", () => {
+        // Change one
+        icon.classList.add("icon-selected");
+        const iconImage = icon.querySelector("img");
+        const iconSpan = icon.querySelector("span");
+
+        iconSpan.style.color = "#5cca55";
+        switch (iconSpan.innerHTML) {
+          case "Pest":
+            iconImage.src = "/static/images/assets/pest-alt.svg";
+            break;
+          case "Nutrient":
+            iconImage.src = "/static/images/assets/nutrient-alt.svg";
+            break;
+          case "Disease":
+            iconImage.src = "/static/images/assets/disease-alt.svg";
+            break;
+        }
+
+        icon.classList.remove("icon-hover");
+      });
+    });
+  };
+
+  stageIconsListener(stageIcons);
+  categoryIconsListener(categoryIcons);
 </script>
 {% endblock content %}

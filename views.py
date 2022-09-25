@@ -36,3 +36,9 @@ def pests():
     return pests
 
 
+@app.route('/submit', methods = ['POST', 'GET'])
+def submit():
+    print('The CNN model prediction will execute here...')
+    return render_template("submit.html")
+
+
