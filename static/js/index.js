@@ -1,9 +1,9 @@
 // fetch('/api/pests')
 // .then(response => response.json())
 // .then(data => console.log(data))
-console.log(screen.width);
+
 /* Mobile Detection */
-const cameraInput = document.getElementsByClassName("camera-input");
+const cameraInput = document.querySelector(".sources-container > div");
 
 if (
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -12,11 +12,11 @@ if (
 ) {
   // mobile
   console.log("Viewing on mobile device...");
-  //cameraInput.classList.add("hidden");
+  cameraInput.classList.remove("hidden");
 } else {
   // Not mobile
   console.log("Viewing on desktop device...");
-  //cameraInput.classList.remove("hidden");
+  cameraInput.classList.add("hidden");
 }
 
 /* Toggle Icons */
@@ -55,7 +55,6 @@ iconsListener(categoryIcons);
 /* Animate Sections */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
-    console.log(entry);
     if (entry.isIntersecting) {
       entry.target.classList.add("show-section");
     }
@@ -64,3 +63,30 @@ const observer = new IntersectionObserver((entries) => {
 
 const hiddenElements = document.querySelectorAll(".hidden-section");
 hiddenElements.forEach((el) => observer.observe(el));
+
+/* Add Uploaded Image */
+document
+  .querySelector("#gallery-input")
+  .addEventListener("change", previewImage);
+
+document
+  .querySelector("#camera-input")
+  .addEventListener("change", previewImage);
+
+function previewImage() {
+  document.querySelector(".image-container").classList.remove("hidden");
+  const preview = document.querySelector(".image-container > img");
+  const file = this.files[0];
+  const reader = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  };
+
+  if (file.type.match("image.*")) {
+    reader.readAsDataURL(file);
+  } else {
+    document.querySelector(".image-container").classList.add("hidden");
+    preview.src = "";
+  }
+}

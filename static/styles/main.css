@@ -131,22 +131,22 @@ body {
   transition-delay: 200ms;
 }
 .stage-icon-container:nth-child(3) {
-  transition-delay: 400ms;
+  transition-delay: 300ms;
 }
 .stage-icon-container:nth-child(4) {
-  transition-delay: 600ms;
+  transition-delay: 400ms;
 }
 .stage-icon-container:nth-child(5) {
-  transition-delay: 800ms;
+  transition-delay: 500ms;
 }
 .stage-icon-container:nth-child(6) {
-  transition-delay: 1000ms;
+  transition-delay: 600ms;
 }
 .stage-icon-container:nth-child(7) {
-  transition-delay: 1200ms;
+  transition-delay: 700ms;
 }
 .stage-icon-container:nth-child(8) {
-  transition-delay: 1400ms;
+  transition-delay: 800ms;
 }
 
 .stage-icon-container > svg {
@@ -194,13 +194,13 @@ body {
 }
 
 .category-icon-container:nth-child(1) {
-  transition-delay: 1600ms;
+  transition-delay: 900ms;
 }
 .category-icon-container:nth-child(2) {
-  transition-delay: 1800ms;
+  transition-delay: 1000ms;
 }
 .category-icon-container:nth-child(3) {
-  transition-delay: 2000ms;
+  transition-delay: 1100ms;
 }
 
 .category-icon-container:nth-child(1) > svg {
@@ -271,10 +271,10 @@ body {
 }
 
 .source-icon-container:nth-child(1) {
-  transition-delay: 2200ms;
+  transition-delay: 1200ms;
 }
 .source-icon-container:nth-child(2) {
-  transition-delay: 2400ms;
+  transition-delay: 1300ms;
 }
 
 .source-icon-container:first-child > svg {
