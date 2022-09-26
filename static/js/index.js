@@ -51,3 +51,16 @@ const iconsListener = (icons) => {
 
 iconsListener(stageIcons);
 iconsListener(categoryIcons);
+
+/* Animate Sections */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    console.log(entry);
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show-section");
+    }
+  });
+});
+
+const hiddenElements = document.querySelectorAll(".hidden-section");
+hiddenElements.forEach((el) => observer.observe(el));
