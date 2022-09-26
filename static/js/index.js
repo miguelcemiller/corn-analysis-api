@@ -1,7 +1,7 @@
 // fetch('/api/pests')
 // .then(response => response.json())
 // .then(data => console.log(data))
-
+console.log(screen.width);
 /* Mobile Detection */
 const cameraInput = document.getElementsByClassName("camera-input");
 
