@@ -200,7 +200,10 @@
   <span class="subheader-container">Image Source</span>
   <div class="image-sources-container padding-content">
     <div class="sources-container">
-      <div class="source-icon-container icon-hover hidden-section" onclick="document.getElementById('camera-input').click()">
+      <div
+        class="source-icon-container icon-hover hidden-section"
+        onclick="document.getElementById('camera-input').click()"
+      >
         <svg
           fill="#9ba29b"
           xmlns="http://www.w3.org/2000/svg"
@@ -228,9 +231,19 @@
           </g>
         </svg>
         <span>Camera</span>
-        <input id="camera-input" type="file" name="image" accept="image/*" capture="capture" style="display: none">
+        <input
+          id="camera-input"
+          type="file"
+          name="image"
+          accept="image/*"
+          capture="capture"
+          style="display: none"
+        />
       </div>
-      <div class="source-icon-container icon-hover hidden-section" onclick="document.getElementById('gallery-input').click()">
+      <div
+        class="source-icon-container icon-hover hidden-section"
+        onclick="document.getElementById('gallery-input').click()"
+      >
         <svg
           fill="#9ba29b"
           xmlns="http://www.w3.org/2000/svg"
@@ -251,7 +264,13 @@
           />
         </svg>
         <span>Gallery</span>
-        <input id="gallery-input" type="file" name="image" accept="image/*" style="display: none">
+        <input
+          id="gallery-input"
+          type="file"
+          name="image"
+          accept="image/*"
+          style="display: none"
+        />
       </div>
     </div>
     <div class="image-container hidden">
@@ -259,7 +278,9 @@
     </div>
   </div>
 
-  <button class="primary-btn hidden-section">Predict</button>
+  <button class="primary-btn hidden-section disabled predict-js">
+    Predict
+  </button>
 </div>
 
 <!-- <div class="hidden">

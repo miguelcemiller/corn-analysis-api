@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, jsonify
 from app import app
 from utils import *
 from models import Pests
@@ -17,7 +17,7 @@ PestFields = {
 def home():
     if request.method == 'POST':
         name = 'atlantic_ocean'
-        image = save_image_pest(request)
+        image = save_image(request)
 
         pest = Pests(name=name, image=image)
 
@@ -36,9 +36,17 @@ def pests():
     return pests
 
 
-@app.route('/submit', methods = ['POST', 'GET'])
+@app.route('/submit', methods = ['GET', 'POST'])
 def submit():
-    print('The CNN model prediction will execute here...')
-    return render_template("submit.html")
+    if request.method == 'POST':
+        # Request.json does not work
+        stage = request.form['stage']
+        category = request.form['category']
+
+        print(request.files['image'])
+        return {'success': 'success'}
+
+    else: 
+        return render_template('prediction.html')
 
 

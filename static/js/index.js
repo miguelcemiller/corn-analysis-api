@@ -2,6 +2,53 @@
 // .then(response => response.json())
 // .then(data => console.log(data))
 
+/* Submit for Prediction */
+// Data Validation
+let data = {
+  stage: "",
+  category: "",
+  image: null,
+};
+
+const dataValidation = () => {
+  if (
+    data.stage == "" ||
+    data.category == "" ||
+    document.querySelector(".image-container").classList.contains("hidden")
+  ) {
+    // Disable Primary Button
+    document.querySelector(".predict-js").classList.add("disabled");
+    return false;
+  } else {
+    // Enable Primary Button
+    document.querySelector(".predict-js").classList.remove("disabled");
+    return true;
+  }
+};
+
+document.querySelector(".predict-js").addEventListener("click", function () {
+  let formData = new FormData();
+  formData.append("stage", data.stage);
+  formData.append("category", data.category);
+  formData.append("image", data.image);
+
+  // Display the key/value pairs
+  // for (var pair of formData.entries()) {
+  //   console.log(pair[0] + ", " + pair[1]);
+  // }
+
+  fetch("/submit", {
+    method: "POST",
+    body: formData,
+  });
+
+  // fetch("/submit", {
+  //   body: formData,
+  //   method: "POST",
+  //   headers: { "Content-Type": "multipart/form-data" },
+  // });
+});
+
 /* Mobile Detection */
 const cameraInput = document.querySelector(".sources-container > div");
 
@@ -43,8 +90,17 @@ const iconsListener = (icons) => {
       icon.querySelector("span").style.color = selectedColor;
       icon.classList.remove("icon-hover");
 
-      // Log selected stage
-      console.log(icon.querySelector("span").innerHTML);
+      // Log selected icon
+      temp = icon.querySelector("span").innerHTML;
+      // Assign to declared variables for Pest, Category
+      if (icons.length == 8) {
+        data.stage = temp;
+      } else {
+        data.category = temp;
+      }
+
+      // Data Validation
+      dataValidation();
     });
   });
 };
@@ -77,6 +133,8 @@ function previewImage() {
   document.querySelector(".image-container").classList.remove("hidden");
   const preview = document.querySelector(".image-container > img");
   const file = this.files[0];
+  // Update Image data object
+  data.image = file;
   const reader = new FileReader();
 
   reader.onloadend = function () {
@@ -89,4 +147,7 @@ function previewImage() {
     document.querySelector(".image-container").classList.add("hidden");
     preview.src = "";
   }
+
+  // Data Validation
+  dataValidation();
 }
