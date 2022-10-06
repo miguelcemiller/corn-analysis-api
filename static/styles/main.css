@@ -48,6 +48,8 @@ body {
   flex-direction: column;
   align-items: center;
 
+  margin: 0 auto;
+
   padding: 0 var(--page-gutter-left-right);
   padding-top: var(--page-gutter-top);
   padding-bottom: var(--page-gutter-bottom);
@@ -55,8 +57,7 @@ body {
 
 /* Container */
 .container {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  max-width: 1180px;
 }
 
 /* Header Container */
@@ -318,7 +319,7 @@ body {
   color: white;
 
   width: 100%;
-  height: 60px;
+  height: 45px;
   background-color: var(--primary);
 
   border: none;
@@ -468,7 +469,7 @@ body {
 
   /* Buttons */
   .primary-btn {
-    height: 50px;
+    height: 45px;
     margin-top: 60px;
   }
 }
