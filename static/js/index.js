@@ -93,7 +93,7 @@ const iconsListener = (icons) => {
       // Log selected icon
       temp = icon.querySelector("span").innerHTML;
       // Assign to declared variables for Pest, Category
-      if (icons.length == 8) {
+      if (icons.length == 18) {
         data.stage = temp;
       } else {
         data.category = temp;
@@ -241,3 +241,20 @@ slider.addEventListener("touchmove", (e) => {
   const walk = (x - startX) * 2;
   slider.scrollLeft = scrollLeft - walk;
 });
+
+/* Modal */
+let moreInfo = document.querySelector(".more-info-js");
+let modalContainer = document.querySelector(".modal-container");
+let modalContent = document.querySelector(".modal-content");
+
+moreInfo.addEventListener("click", () => {
+  modalContainer.classList.remove("hidden");
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  console.log(event.target);
+  if (event.target == modalContent) {
+    modalContainer.classList.add("hidden");
+  }
+};
