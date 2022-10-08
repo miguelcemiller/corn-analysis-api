@@ -36,7 +36,7 @@ def pests():
     return pests
 
 
-@app.route('/submit', methods = ['GET', 'POST'])
+@app.route('/prediction', methods = ['GET', 'POST'])
 def submit():
     if request.method == 'POST':
         # Request.json does not work
@@ -46,7 +46,9 @@ def submit():
         print(request.files['image'])
         return {'success': 'success'}
 
-    else: 
-        return render_template('prediction.html')
+    else:
+        category = 'Pest'
+        if category == "Pest": 
+            return render_template('pest.html')
 
 
