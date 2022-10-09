@@ -9,6 +9,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
+    TEMPLATES_AUTO_RELOAD = True
 
     FLASK_APP = os.environ.get("FLASK_APP")
     FLASK_ENV = os.environ.get("FLASK_ENV")
