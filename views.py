@@ -47,10 +47,12 @@ def submit():
         return {'success': 'success'}
 
     else:
-        category = 'Disease'
+        category = 'Nutrient'
         if category == "Pest": 
             return render_template('pest.html')
         elif category == 'Disease':
             return render_template('disease.html')
+        elif category == 'Nutrient':
+            return render_template('nutrient.html')
 
 
