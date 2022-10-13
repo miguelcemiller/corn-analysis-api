@@ -1,3 +1,4 @@
+from os import name
 from flask import request, render_template, jsonify
 from app import app
 from utils import *
@@ -36,23 +37,45 @@ def pests():
     return pests
 
 
-@app.route('/prediction', methods = ['GET', 'POST'])
+@app.route('/submit', methods = ['POST'])
 def submit():
     if request.method == 'POST':
-        # Request.json does not work
+        # Save image
         stage = request.form['stage']
         category = request.form['category']
+        image_filename = save_image(request, category.lower()+'s')
 
-        print(request.files['image'])
-        return {'success': 'success'}
+        # Prediction
+        prediction = predict_image(category.lower()+'s', image_filename)
 
-    else:
-        category = 'Nutrient'
-        if category == "Pest": 
-            return render_template('pest.html')
-        elif category == 'Disease':
-            return render_template('disease.html')
-        elif category == 'Nutrient':
-            return render_template('nutrient.html')
+        return {
+            'stage': stage,
+            'category': category,
+            'image_filename': image_filename, 
+            'prediction': prediction}
+
+@app.route('/p/<image_filename>/<stage>/<category>/<prediction>', methods=['GET'])
+def p(image_filename, stage, category, prediction):
+    print('Image Filename: ', image_filename)
+    print('Stage: ', stage)
+    print('Category: ', category)
+    print('Prediction: ', prediction)
+
+    data = {
+        'image_filename': image_filename,
+        'stage': stage,
+        'category': category,
+        'prediction': prediction
+    }
+
+    if category == "Pest": 
+        return render_template('pest.html', data=data)
+    elif category == 'Disease':
+        return render_template('disease.html')
+    elif category == 'Nutrient':
+        return render_template('nutrient.html')
 
 
+@app.route('/prediction')
+def prediction():
+    return render_template('pest.html')

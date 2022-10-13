@@ -10,6 +10,7 @@ class Config:
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
     TEMPLATES_AUTO_RELOAD = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     FLASK_APP = os.environ.get("FLASK_APP")
     FLASK_ENV = os.environ.get("FLASK_ENV")

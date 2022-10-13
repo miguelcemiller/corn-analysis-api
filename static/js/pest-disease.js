@@ -87,7 +87,6 @@ slider.addEventListener("touchmove", (e) => {
   slider.scrollLeft = scrollLeft - walk;
 });
 
-
 /* Slider Mobile */
 // Source: https://stackoverflow.com/questions/58353280/prevent-click-when-leave-drag-to-scroll-in-js/58353989#58353989
 // https://stackabuse.com/how-to-create-a-draggable-carousel-using-vanilla-javascript/
@@ -166,3 +165,81 @@ sliderMobile.addEventListener("touchmove", (e) => {
   const walk = (x - startX) * 2;
   sliderMobile.scrollLeft = scrollLeft - walk;
 });
+
+/* Fetch Data */
+const category_UI = document.querySelector(".subheader-container").innerHTML;
+
+if (category_UI == "Peste") {
+  fetch("/static/prediction-data/pests.json")
+    .then((response) => response.json())
+    .then((json) => {
+      console.log("Pests:", json);
+      const prediction = document.querySelector(
+        ".prediction-desc-container > span"
+      ).innerHTML;
+
+      pestData = json.find((item) => item.pest == prediction);
+      console.log("Pest Data: ", pestData);
+
+      //Scientific Name
+      let scientificName = document.querySelector("#scientific-name-js");
+      scientificName.innerHTML = pestData.scientificName;
+
+      // Descriptions
+      let descriptions = document.querySelector("#descriptions-js");
+      pestData.descriptions.forEach((description) => {
+        descriptions.innerHTML += `<span>${description}</span>`;
+      });
+
+      // Images
+      let images = document.querySelector("#images-js");
+      pestData.images.forEach((image) => {
+        images.innerHTML += `
+          <div class="slider-image-container">
+            <img src="/static/prediction-data/${image}" />
+          </div>
+        `;
+      });
+
+      let imagesMobile = document.querySelector("#images-mobile-js");
+      pestData.images.forEach((image) => {
+        imagesMobile.innerHTML += `
+          <div class="slider-image-container">
+            <img src="/static/prediction-data/${image}" />
+          </div>
+        `;
+      });
+
+      // Life Cycle
+      let lifeCycle = document.querySelector("#life-cycle-js");
+      Object.entries(pestData.lifeCycle).forEach(([key, value]) => {
+        lifeCycle.innerHTML += `
+          <div class="life-cycle">
+            <span>${key}</span>
+            <span>${value}</span>
+          </div>
+        `;
+      });
+
+      // Damages
+      let damages = document.querySelector("#damages-js");
+      pestData.damages.forEach((damage) => {
+        damages.innerHTML += `<span class="damage">${damage}</span>`;
+      });
+
+      // Controls
+      let controls = document.querySelector("#controls-js");
+      pestData.controls.forEach((control) => {
+        let temp = `
+        <div class="control">
+          <span>${control.method}</span>
+          <div class="control-process">`;
+        control.process.forEach((process) => {
+          temp += `<span>${process}</span>`;
+        });
+        temp += "</div></div>";
+
+        controls.innerHTML += temp;
+      });
+    });
+}

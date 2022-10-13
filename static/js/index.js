@@ -26,27 +26,34 @@ const dataValidation = () => {
   }
 };
 
+/* Predict */
+let res = null;
 document.querySelector(".predict-js").addEventListener("click", function () {
+  // show spinner
+  document.querySelector(".spinner-container").classList.remove("hidden");
+  document.querySelector(".predict-js").classList.add("hidden");
+
   let formData = new FormData();
   formData.append("stage", data.stage);
   formData.append("category", data.category);
   formData.append("image", data.image);
 
-  // Display the key/value pairs
-  // for (var pair of formData.entries()) {
-  //   console.log(pair[0] + ", " + pair[1]);
-  // }
-
   fetch("/submit", {
     method: "POST",
     body: formData,
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
+      //window.location.href = `/prediction/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-  // fetch("/submit", {
-  //   body: formData,
-  //   method: "POST",
-  //   headers: { "Content-Type": "multipart/form-data" },
-  // });
+  if (res != null) {
+  }
 });
 
 /* Mobile Detection */
@@ -99,7 +106,7 @@ const iconsListener = (icons) => {
         data.category = temp;
       }
 
-      console.log(temp);
+      // console.log(temp);
       // Data Validation
       dataValidation();
     });
@@ -253,7 +260,6 @@ moreInfo.addEventListener("click", () => {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-  console.log(event.target);
   if (event.target == modalContent) {
     modalContainer.classList.add("hidden");
   }
