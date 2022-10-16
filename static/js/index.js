@@ -46,7 +46,6 @@ document.querySelector(".predict-js").addEventListener("click", function () {
     .then((data) => {
       console.log(data);
       window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
-      //window.location.href = `/prediction/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
     })
     .catch((error) => {
       console.log(error);
@@ -163,7 +162,7 @@ function previewImage() {
 /* Slider */
 // Source: https://stackoverflow.com/questions/58353280/prevent-click-when-leave-drag-to-scroll-in-js/58353989#58353989
 // https://stackabuse.com/how-to-create-a-draggable-carousel-using-vanilla-javascript/
-const slider = document.querySelector(".slider");
+const slider = document.querySelector(".slider-stages");
 
 const preventClick = (e) => {
   e.preventDefault();

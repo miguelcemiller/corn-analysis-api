@@ -77,9 +77,4 @@ def p(image_filename, stage, category, prediction):
     elif category == 'Disease':
         return render_template('disease.html')
     elif category == 'Nutrient':
-        return render_template('nutrient.html')
-
-
-@app.route('/prediction')
-def prediction():
-    return render_template('pest.html')
+        return render_template('nutrient.html', data=data)

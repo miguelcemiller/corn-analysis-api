@@ -9,23 +9,25 @@
     <span class="subheader-container">Kulay ng Dahon</span>
     <div class="prediction-container padding-content">
         <div class="prediction-image-container">
-            <img src="https://www.garden.eco/wp-content/uploads/2018/04/corn-leaves.jpg" />
+            <img src="/static/images/nutrients/{{data.image_filename}}" />
         </div>
         <div class="prediction-desc-slider-container">
             <div class="prediction-desc-container">
-                <span>Leaf Color #2</span>
-                <div class="leaf-description">
-                    <span>Maglagay ng maraming Nitrogen fertilizer.</span>
-                    <span>Kaagad maglagay ng fertilizer.</span>
+                <span id="leaf-color-js">#{{data.prediction}}</span>
+                <div id='nitrogens-js' class="leaf-description">
+                    <!-- <span>Maglagay ng maraming Nitrogen fertilizer.</span>
+                    <span>Kaagad maglagay ng fertilizer.</span> -->
                 </div>
             </div>
 
-            <div class="leaf-image-container">
-                <img src="/static/images/assets/leaf-color-2.jpg">
+            <div id="image-js" class="leaf-image-container">
+                <!-- <img src="/static/images/assets/leaf-color-2.jpg"> -->
             </div>
 
         </div>
     </div>
 </div>
+
+<script src="/static/js/nutrient.js"></script>
 
 {% endblock content %}

@@ -62,19 +62,18 @@ def predict_image(category, image_filename):
 
 def delta_e(image_filename):
     IMG_SIZE = (200,200)
-    NUTRIENT_CATEGORIES = ['#2', '#3', '#4', '#5']
+    NUTRIENT_CATEGORIES = ['2', '3', '4', '5']
 
     img_A_path = join(dirname(realpath(__file__)), 'static\\images\\nutrients\\') + image_filename
+    img_B_paths = [
+    'static\\prediction-data\\images\\nutrients\\2.jpg',
+    'static\\prediction-data\\images\\nutrients\\3.jpg',
+    'static\\prediction-data\\images\\nutrients\\4.jpg',
+    'static\\prediction-data\\images\\nutrients\\5.jpg']
 
     img_A = cv2.imread(img_A_path).astype("float32") / 255
     img_A = cv2.resize(img_A, IMG_SIZE)
     img_A = cv2.cvtColor(img_A,cv2.COLOR_BGR2LAB)
-
-    img_B_paths = [
-        'static\\prediction-data\\images\\nutrients\\2.jpg',
-        'static\\prediction-data\\images\\nutrients\\3.jpg',
-        'static\\prediction-data\\images\\nutrients\\4.jpg',
-        'static\\prediction-data\\images\\nutrients\\5.jpg']
 
     delta_e_list = []
     for img_B_path in img_B_paths: 
@@ -86,9 +85,11 @@ def delta_e(image_filename):
         delta_E = np.mean(colour.delta_E(img_A, img_B))
 
         # Append to list
-        delta_e_list.append(delta_e)
+        delta_e_list.append(delta_E)
 
+    print(delta_e_list)
     prediction = NUTRIENT_CATEGORIES[np.argmin(delta_e_list)]
+    print('THE PREDICTION IS #'+ prediction)
 
     return prediction
 

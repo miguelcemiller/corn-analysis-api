@@ -148,6 +148,12 @@ body {
   overflow: hidden;
 }
 
+.slider-stages {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
 .slider.mobile {
   display: none;
   margin-left: var(--padding-content-left);
@@ -201,6 +207,7 @@ body {
 .category-icon-container {
   height: var(--icon-size);
   width: var(--icon-size);
+  min-width: var(--icon-size);
   border-radius: 50%;
   margin-right: var(--gap);
   background-color: var(--icon-bg);
@@ -264,7 +271,7 @@ body {
   background-color: #a3df9e;
   width: 100%;
   border-radius: 6px;
-  margin-top: 60px;
+  margin-top: 70px;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -511,7 +518,8 @@ body {
   font-size: var(--font-size-small);
   font-weight: 500;
   margin-top: -2px;
-  white-space: nowrap;
+  text-align: center;
+  /* white-space: nowrap; */
 }
 
 /* Damages Container */
@@ -627,7 +635,11 @@ body {
 
   /* Buttons */
   .primary-btn {
-    height: 40px;
+    margin-top: 55px;
+  }
+
+  /* Spinner Container */
+  .spinner-container {
     margin-top: 55px;
   }
 
@@ -655,6 +667,7 @@ body {
   /* Life Cycle Mobile */
   .life-cycle {
     padding: 8px 12px;
+    max-width: 120px;
     box-shadow: 0 0 0 1.7px #a5aca5 inset;
   }
 
