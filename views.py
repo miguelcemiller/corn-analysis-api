@@ -43,10 +43,14 @@ def submit():
         # Save image
         stage = request.form['stage']
         category = request.form['category']
-        image_filename = save_image(request, category.lower()+'s')
+        image_filename = save_image(request, category)
 
-        # Prediction
-        prediction = predict_image(category.lower()+'s', image_filename)
+        # Prediction (Pests and Diseases)
+        if category == 'Pest' or category == 'Disease':
+            prediction = predict_image(category, image_filename)
+        # Delta-E (Nutrients)
+        else:
+            prediction = delta_e(image_filename)
 
         return {
             'stage': stage,
