@@ -161,6 +161,48 @@ body {
   width: auto;
 }
 
+/* Barangay Container */
+select {
+  appearance: none;
+  width: 100%;
+  max-width: 250px;
+  min-width: 200px;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 0 0 2.1px transparent inset;
+  outline: none;
+  padding: 8px 12px;
+  font-family: "Poppins", sans-serif;
+  font-size: var(--font-size-regular);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--text-body);
+  cursor: pointer;
+
+  background-color: var(--icon-bg);
+  background-image: url("/static/images/assets/arrow.svg");
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: right;
+  background-origin: content-box;
+}
+
+select:hover {
+  box-shadow: 0 0 0 2.1px #a5aca5 inset;
+}
+
+select:focus {
+  box-shadow: 0 0 0 2.1px #5cca55 inset;
+}
+
+select > option {
+  font-family: "Poppins", sans-serif;
+  font-size: var(--font-size-regular);
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  color: var(--text-body);
+}
+
 /* Stages Container */
 
 /* Stage Icon Container */
@@ -716,14 +758,15 @@ span {
 }
 
 /* Transition Delay */
+.barangay-container,
 .stages-container,
 .categories-container,
 .image-sources-container {
-  transition-delay: 400ms;
+  transition-delay: 300ms;
 }
 
 .primary-btn {
-  transition-delay: 800ms;
+  transition-delay: 300ms;
 }
 
 .padding-content {

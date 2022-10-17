@@ -170,7 +170,7 @@ sliderMobile.addEventListener("touchmove", (e) => {
 const category_UI = document.querySelector(".subheader-container").innerHTML;
 
 if (category_UI == "Peste") {
-  fetch("/static/prediction-data/pests.json")
+  fetch("/static/prediction-data/json/pests.json")
     .then((response) => response.json())
     .then((json) => {
       console.log("Pests:", json);
@@ -242,4 +242,6 @@ if (category_UI == "Peste") {
         controls.innerHTML += temp;
       });
     });
+} else if (category_UI == "Sakit") {
+  // Code here
 }

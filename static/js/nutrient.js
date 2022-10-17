@@ -1,4 +1,4 @@
-fetch("/static/prediction-data/nutrients.json")
+fetch("/static/prediction-data/json/nutrients.json")
   .then((response) => response.json())
   .then((json) => {
     console.log("Nutrients:", json);
