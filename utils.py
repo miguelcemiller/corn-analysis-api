@@ -35,18 +35,15 @@ def predict_image(category, image_filename):
     category = category.lower()+'s'
 
     pest_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\pest-classifier.hdf5'))
+    disease_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\disease-classifier.hdf5'))
 
     PEST_CATEGORIES = ['Asiatic Corn Borer', 'Black Armyworm', 'Common Cutworm', 'Corn Aphids', 'Corn Earworm', 'Corn Plant Hopper', 'Corn Seedling Maggot', 'Corn Semilooper', 'True Armyworm', 'White Grub']
-    DISEASE_CATEGORIES = []
 
-    # Read and show image 
-    # img_test = cv2.imread(join(dirname(realpath(__file__)), 'static\\images\\' + category + '\\') + image)
-    # plt.imshow(img_test)
-    # plt.show()
+    DISEASE_CATEGORIES = ['Aspergillus Ear Rot', 'Bacterial Stalk Rot', 'Banded Leaf and Sheath Blight', 'Common Corn Rust', 'Common Smut', 'Gray Leaf Spot', 'Leaf Blight', 'Philippine Corn Downey Mildew']
 
     # Image Path
     img_path = join(dirname(realpath(__file__)), 'static\\images\\' + category + '\\') + image_filename
-    print('image_path: ', img_path)
+    print('IMAGE_PATH: ', img_path)
 
     x = path_to_tensor(img_path)
     x = np.array(x)
@@ -56,9 +53,9 @@ def predict_image(category, image_filename):
         # print('Predicted Pest: ',  str(PEST_CATEGORIES[prediction]))
         return str(PEST_CATEGORIES[prediction])
     else:
-        # disease classifier
-        return None
-
+        prediction = np.argmax(disease_classifier.predict(x))
+        # print('Predicted Disease: ',  str(DISEASE_CATEGORIES[prediction]))
+        return str(DISEASE_CATEGORIES[prediction])
 
 def delta_e(image_filename):
     IMG_SIZE = (200,200)

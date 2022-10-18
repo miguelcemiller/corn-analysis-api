@@ -75,6 +75,6 @@ def p(image_filename, stage, category, prediction):
     if category == "Pest": 
         return render_template('pest.html', data=data)
     elif category == 'Disease':
-        return render_template('disease.html')
+        return render_template('disease.html', data=data)
     elif category == 'Nutrient':
         return render_template('nutrient.html', data=data)

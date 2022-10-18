@@ -9,89 +9,42 @@
     <span class="subheader-container">Sakit</span>
     <div class="prediction-container padding-content">
         <div class="prediction-image-container">
-            <img
-                src="https://assets.corteva.com/is/image/Corteva/IMG-photo-aspergillus-ear-mold-on-corn-closeup?wid=511&hei=398" />
+            <img src="/static/images/diseases/{{data.image_filename}}" />
         </div>
         <div class="prediction-desc-slider-container">
             <div class="prediction-desc-container">
-                <span>Aspergillus Ear Rot</span>
-                <span><i>Aspergillus flavus</i></span>
-                <div>
-                    <span>Mabilis na kumakalat ang sakit kapag mainit at maalinsangang ang maisan.</span>
-                    <span>Ikinakalat din ng mga peste ang sakit na ito.</span>
-                    <span>Nagkakaroon ng aspergillus ear rot ang mais kung ito ay nakatabi sa imbakan na may mataas na
-                        moisture level.</span>
+                <span>{{data.prediction}}</span>
+                <span><i id="scientific-name-js"></i></span>
+                <div id="descriptions-js">
                 </div>
             </div>
-            <div class="slider">
-                <div class="slider-image-container">
+            <div id="images-js" class="slider">
+                <!-- <div class="slider-image-container">
                     <img
                         src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-                </div>
-                <div class="slider-image-container">
-                    <img
-                        src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-                </div>
-                <div class="slider-image-container">
-                    <img
-                        src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-                </div>
-                <div class="slider-image-container">
-                    <img
-                        src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-                </div>
-                <div class="slider-image-container">
-                    <img
-                        src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 
-    <div class="slider mobile">
-        <div class="slider-image-container">
+    <div id="images-mobile-js" class="slider mobile">
+        <!-- <div class="slider-image-container">
             <img
                 src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-        </div>
-        <div class="slider-image-container">
-            <img
-                src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-        </div>
-        <div class="slider-image-container">
-            <img
-                src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-        </div>
-        <div class="slider-image-container">
-            <img
-                src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-        </div>
-        <div class="slider-image-container">
-            <img
-                src="https://images.squarespace-cdn.com/content/v1/58d96874b3db2bf10b58f5aa/1504281950636-4BWYC77FRB4LQ5459177/Aspergillus_IowaState.jpg" />
-        </div>
+        </div> -->
     </div>
 
     <span class="subheader-container">Pinsala</span>
-    <div class="damages-container padding-content">
-        <span class="damage">Ang mga maliliit na uod ay kinakain ang mga dahon na nagdudulot ng maliliit na
-            butas. Ang malalaki naman ay gumagawa ng mas malalaking butas.</span>
-        <span class="damage"> Ang paglusob ng insekto ay nagsisimula apat na linggo pagkatapos ng pagtatanim.
-            Tumatagal ang insekto hanggang sa
-            pag-aani.</span>
-        <span class="damage">Sa pag-usbong ng tassel, ang mataas na populasyon ng uod ay nadudulot ng
-            pagkasira ng mga tassel.</span>
-        <span class="damage">Ang mga malalaking uod ay nagdudulot ng pinakamatinding pagkasira sa tanim dahil kinakain
-            nila
-            ang buhok ng mais, pumapasok sa loob ng ani.</span>
+    <div id="damages-js" class="damages-container padding-content">
+        <!-- <span class="damage">Ang mga maliliit na uod ay kinakain ang mga dahon na nagdudulot ng maliliit na
+            butas. Ang malalaki naman ay gumagawa ng mas malalaking butas.</span> -->
     </div>
 
     <span class="subheader-container">Paraan ng Pagkontrol</span>
     <div class="controls-container padding-content">
         <div class="control">
-            <div class="control-process">
-                <span>Maayos na irigasyon at paglagay ng fertilizer o pataba.</span>
-                <span>Alamin kung paano makokontrol ang mga pesteng nakakapagkalat ng sakit.</span>
-                <span>Gumamit ng variety ng pananim na kayang labanan ang Aspergillus ear rot.</span>
+            <div id="control-processes-js" class="control-process">
+                <!-- <span>Maayos na irigasyon at paglagay ng fertilizer o pataba.</span> -->
             </div>
         </div>
     </div>

@@ -173,13 +173,11 @@ if (category_UI == "Peste") {
   fetch("/static/prediction-data/json/pests.json")
     .then((response) => response.json())
     .then((json) => {
-      console.log("Pests:", json);
       const prediction = document.querySelector(
         ".prediction-desc-container > span"
       ).innerHTML;
 
-      pestData = json.find((item) => item.pest == prediction);
-      console.log("Pest Data: ", pestData);
+      let pestData = json.find((item) => item.pest == prediction);
 
       //Scientific Name
       let scientificName = document.querySelector("#scientific-name-js");
@@ -243,5 +241,54 @@ if (category_UI == "Peste") {
       });
     });
 } else if (category_UI == "Sakit") {
-  // Code here
+  fetch("/static/prediction-data/json/diseases.json")
+    .then((response) => response.json())
+    .then((json) => {
+      const prediction = document.querySelector(
+        ".prediction-desc-container > span"
+      ).innerHTML;
+
+      let diseaseData = json.find((item) => item.disease == prediction);
+
+      //Scientific Name
+      let scientificName = document.querySelector("#scientific-name-js");
+      scientificName.innerHTML = diseaseData.scientificName;
+
+      // Descriptions
+      let descriptions = document.querySelector("#descriptions-js");
+      diseaseData.descriptions.forEach((description) => {
+        descriptions.innerHTML += `<span>${description}</span>`;
+      });
+
+      // Images
+      let images = document.querySelector("#images-js");
+      diseaseData.images.forEach((image) => {
+        images.innerHTML += `
+          <div class="slider-image-container">
+            <img src="/static/prediction-data/${image}" />
+          </div>
+        `;
+      });
+
+      let imagesMobile = document.querySelector("#images-mobile-js");
+      diseaseData.images.forEach((image) => {
+        imagesMobile.innerHTML += `
+          <div class="slider-image-container">
+            <img src="/static/prediction-data/${image}" />
+          </div>
+        `;
+      });
+
+      // Damages
+      let damages = document.querySelector("#damages-js");
+      diseaseData.damages.forEach((damage) => {
+        damages.innerHTML += `<span class="damage">${damage}</span>`;
+      });
+
+      // Controls
+      let controlProcesses = document.querySelector("#control-processes-js");
+      diseaseData.controls.forEach((control) => {
+        controlProcesses.innerHTML += `<span>${control}</span>`;
+      });
+    });
 }
