@@ -19,6 +19,9 @@ def save_image(image, category):
     if image.filename != '':
         filename = str(uuid4()) + secure_filename(image.filename)
         image.save(os.path.join(UPLOAD_PATH_PEST, filename))
+        # reset image before reading again 
+        # https://github.com/pallets/werkzeug/issues/1666
+        image.stream.seek(0)
         return filename
 
 def path_to_tensor(img_path):
@@ -42,7 +45,6 @@ def predict_image(category, image_filename):
 
     # Image Path
     img_path = join(dirname(realpath(__file__)), 'static\\images\\' + category + '\\') + image_filename
-    print('IMAGE_PATH: ', img_path)
 
     x = path_to_tensor(img_path)
     x = np.array(x)
@@ -55,6 +57,39 @@ def predict_image(category, image_filename):
         prediction = np.argmax(disease_classifier.predict(x))
         # print('Predicted Disease: ',  str(DISEASE_CATEGORIES[prediction]))
         return str(DISEASE_CATEGORIES[prediction])
+
+def predict_category(image, category):
+    pest_disease_nutrient_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\pest-disease-nutrient-classifier.hdf5'))
+
+    PEST_DISEASE_NUTRIENT_CATEGORIES = ['Disease', 'Nutrient', 'Pest']
+
+    # save image to temp folder
+    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static\\images\\temp')
+
+    if image.filename != '':
+        filename = str(uuid4()) + secure_filename(image.filename)
+        image.save(os.path.join(UPLOAD_PATH_TEMP, filename))
+
+        # reset image before reading again 
+        # https://github.com/pallets/werkzeug/issues/1666
+        image.stream.seek(0)
+        
+        image_filename = filename
+
+    # image path
+    img_path = join(dirname(realpath(__file__)), 'static\\images\\temp\\') + image_filename
+
+    x = path_to_tensor(img_path)
+    x = np.array(x)
+
+    prediction = np.argmax(pest_disease_nutrient_classifier.predict(x))
+    category_prediction = str(PEST_DISEASE_NUTRIENT_CATEGORIES[prediction])
+
+    if category_prediction == category:
+        return True
+    else:
+        return False
+
 
 def delta_e(image_filename):
     IMG_SIZE = (200,200)
@@ -88,7 +123,6 @@ def delta_e(image_filename):
     print('THE PREDICTION IS #'+ prediction)
 
     return prediction
-
 
 
 def face_detector(image):
@@ -145,3 +179,5 @@ def clear_temp():
     files = glob(join(dirname(realpath(__file__)), 'static\\images\\temp\\*'))
     for f in files:
         os.remove(f)
+
+

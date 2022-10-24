@@ -27,11 +27,13 @@ const dataValidation = () => {
 };
 
 /* Predict */
-let res = null;
 document.querySelector(".predict-js").addEventListener("click", function () {
   // show spinner
   document.querySelector(".spinner-container").classList.remove("hidden");
   document.querySelector(".predict-js").classList.add("hidden");
+
+  // hide error container
+  document.querySelector(".error-container").classList.add("hidden");
 
   let formData = new FormData();
   formData.append("stage", data.stage);
@@ -46,7 +48,18 @@ document.querySelector(".predict-js").addEventListener("click", function () {
     .then((data) => {
       if (data.prediction == "human") {
         // unhide error container
-        const errorContainer = document.querySelector(".error-container");
+        let errorContainer = document.querySelector(".error-container");
+        errorContainer.innerHTML = "The image input is a human!";
+        errorContainer.classList.remove("hidden");
+
+        // hide spinner
+        document.querySelector(".spinner-container").classList.add("hidden");
+        document.querySelector(".predict-js").classList.remove("hidden");
+      } else if (data.prediction == "categorical") {
+        // unhide error container
+        let errorContainer = document.querySelector(".error-container");
+        errorContainer.innerHTML =
+          "The input image does not match the category!";
         errorContainer.classList.remove("hidden");
 
         // hide spinner
@@ -60,9 +73,6 @@ document.querySelector(".predict-js").addEventListener("click", function () {
     .catch((error) => {
       console.log(error);
     });
-
-  if (res != null) {
-  }
 });
 
 /* Mobile Detection */
