@@ -45,8 +45,13 @@ document.querySelector(".predict-js").addEventListener("click", function () {
     .then((response) => response.json())
     .then((data) => {
       if (data.prediction == "human") {
-        console.log(data);
-        window.location.href = `/p/human`;
+        // unhide error container
+        const errorContainer = document.querySelector(".error-container");
+        errorContainer.classList.remove("hidden");
+
+        // hide spinner
+        document.querySelector(".spinner-container").classList.add("hidden");
+        document.querySelector(".predict-js").classList.remove("hidden");
       } else {
         console.log(data);
         window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;

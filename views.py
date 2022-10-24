@@ -43,7 +43,6 @@ def submit():
         image = request.files['image']
         # check if image is human
         is_human = face_detector(image)
-        print('IS THE IMAGE HUMAN: ' + str(is_human))
 
         # clear temp folder
         clear_temp()
@@ -89,8 +88,3 @@ def p(image_filename, stage, category, prediction):
         return render_template('disease.html', data=data)
     elif category == 'Nutrient':
         return render_template('nutrient.html', data=data)
-
-
-@app.route('/p/human', methods=['GET'])
-def p_human():
-    return render_template('human.html')

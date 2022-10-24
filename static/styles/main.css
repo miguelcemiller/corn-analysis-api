@@ -535,6 +535,15 @@ select > option {
   border-radius: 10px;
 }
 
+/* Error Container */
+.error-container {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: #d33030;
+  text-align: center;
+  margin-top: 20px;
+}
+
 /* Life Cycle Container */
 .life-cycle-container {
   display: flex;
