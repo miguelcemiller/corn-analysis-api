@@ -44,8 +44,13 @@ document.querySelector(".predict-js").addEventListener("click", function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
+      if (data.prediction == "human") {
+        console.log(data);
+        window.location.href = `/p/human`;
+      } else {
+        console.log(data);
+        window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
+      }
     })
     .catch((error) => {
       console.log(error);

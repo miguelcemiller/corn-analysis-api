@@ -12,12 +12,11 @@ import cv2
 from keras.models import load_model
 import colour
 
-def save_image(request, category):
+def save_image(image, category):
     category = category.lower()+'s'
     UPLOAD_PATH_PEST = join(dirname(realpath(__file__)), 'static\\images\\' + category)
 
-    if request.files['image'].filename != '':
-        image = request.files['image']
+    if image.filename != '':
         filename = str(uuid4()) + secure_filename(image.filename)
         image.save(os.path.join(UPLOAD_PATH_PEST, filename))
         return filename
@@ -92,5 +91,57 @@ def delta_e(image_filename):
 
 
 
+def face_detector(image):
+    # extract pre-trained face detector
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt.xml")
+    
+    # save image to temp folder
+    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static\\images\\temp')
+
+    if image.filename != '':
+        filename = str(uuid4()) + secure_filename(image.filename)
+        image.save(os.path.join(UPLOAD_PATH_TEMP, filename))
+
+        # reset image before reading again 
+        # https://github.com/pallets/werkzeug/issues/1666
+        image.stream.seek(0)
+        
+        image_filename = filename
+
+    # image path
+    img_path = join(dirname(realpath(__file__)), 'static\\images\\temp\\') + image_filename
+
+    # load color (BGR) image
+    img = cv2.imread(img_path)
+    # convert BGR image to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # find faces in image
+    faces = face_cascade.detectMultiScale(gray)
+
+    # print number of faces detected in the image
+    # print('Number of faces detected:', len(faces))
+
+    # get bounding box for each detected face
+    for (x,y,w,h) in faces:
+        # add bounding box to color image
+        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+        
+    # convert BGR image to RGB for plotting
+    cv_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    # display the image, along with bounding box
+    # plt.imshow(cv_rgb)
+    # plt.show()
+
+    # returns "True" if face is detected in image stored at img_path
+    img = cv2.imread(img_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray)
+    return len(faces) > 0
 
 
+def clear_temp():
+    files = glob(join(dirname(realpath(__file__)), 'static\\images\\temp\\*'))
+    for f in files:
+        os.remove(f)
