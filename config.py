@@ -12,11 +12,6 @@ class Config:
     TEMPLATES_AUTO_RELOAD = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    FLASK_APP = os.environ.get("FLASK_APP")
-    FLASK_ENV = os.environ.get("FLASK_ENV")
-    FLASK_RUN_PORT = os.environ.get("FLASK_RUN_PORT")
-    FLASK_RUN_HOST = os.environ.get("FLASK_RUN_HOST")
-
-DB_HOST = os.environ.get("DB_HOST")
-DB_USER = os.environ.get("DB_USER")
-DB_PASS = os.environ.get("DB_PASS")
+# DB_HOST = os.environ.get("DB_HOST")
+# DB_USER = os.environ.get("DB_USER")
+# DB_PASS = os.environ.get("DB_PASS")
