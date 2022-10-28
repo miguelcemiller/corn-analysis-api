@@ -9,6 +9,8 @@ colorama==0.4.5
 colour-science==0.4.1
 contourpy==1.0.5
 cycler==0.11.0
+distlib==0.3.6
+filelock==3.8.0
 Flask==2.2.2
 Flask-MySQLdb==1.0.1
 Flask-RESTful==0.3.9
@@ -43,6 +45,7 @@ opencv-python==4.6.0.66
 opt-einsum==3.3.0
 packaging==21.3
 Pillow==9.2.0
+platformdirs==2.5.2
 protobuf==3.19.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -66,6 +69,7 @@ termcolor==2.0.1
 tf-estimator-nightly==2.8.0.dev2021122109
 typing_extensions==4.4.0
 urllib3==1.26.12
+virtualenv==20.16.5
 Werkzeug==2.2.2
 wrapt==1.14.1
 zipp==3.8.1
