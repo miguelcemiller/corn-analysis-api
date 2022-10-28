@@ -363,12 +363,20 @@ select > option {
   margin-right: 0px;
 }
 
-.source-icon-container:first-child > svg {
+/* Camera Input SVG */
+.source-icon-container:nth-child(1) > svg {
   height: 22px;
   width: auto;
 }
 
+/* Webcam Input SVG */
 .source-icon-container:nth-child(2) > svg {
+  height: 22px;
+  width: auto;
+}
+
+/* Gallery Input SVG */
+.source-icon-container:nth-child(3) > svg {
   height: 23px;
   width: auto;
 }
@@ -385,14 +393,69 @@ select > option {
 .image-container {
   width: 100%;
   height: 350px;
+  border-radius: 20px;
+
+  overflow: hidden;
   margin-top: var(--gap);
 }
 
 .image-container > img {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
   object-fit: cover;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+  margin-top: var(--gap);
+}
+
+/* Webcam Video Capture Container */
+.webcam-video-capture-container {
+  width: 100%;
+  height: 350px;
+  margin-top: var(--gap);
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+/* Webcam Video Container */
+.webcam-video-container {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Webcam Capture */
+.webcam-capture {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.webcam-capture > div {
+  font-family: "Poppins", sans-serif;
+  font-size: var(--font-size-regular);
+  font-weight: 600;
+  color: var(--bg);
 }
 
 /* Buttons */

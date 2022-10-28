@@ -253,7 +253,9 @@
   <span class="subheader-container">Larawan</span>
   <div class="image-sources-container padding-content hidden-section">
     <div class="sources-container">
-      <div class="source-icon-container icon-hover" onclick="document.getElementById('camera-input').click()">
+
+      <div id='camera-input-js' class="source-icon-container icon-hover hidden"
+        onclick="document.getElementById('camera-input').click()">
         <svg fill="#9ba29b" xmlns="http://www.w3.org/2000/svg" width="41.55" height="36" viewBox="0 0 42.72 37"
           preserveAspectRatio="none">
           <g transform="translate(0 0)">
@@ -271,6 +273,25 @@
         <span>Camera</span>
         <input id="camera-input" type="file" name="image" accept="image/*" capture="capture" style="display: none" />
       </div>
+
+      <div id='webcam-input-js' class="source-icon-container icon-hover hidden">
+        <svg fill="#9ba29b" xmlns="http://www.w3.org/2000/svg" width="41.55" height="36" viewBox="0 0 42.72 37"
+          preserveAspectRatio="none">
+          <g transform="translate(0 0)">
+            <path class="a"
+              d="M31.531-463.834a5.466,5.466,0,0,0-2.678,1.583,7.643,7.643,0,0,0-1.414,2.829l-.383,1.183H23.623a22.655,22.655,0,0,0-3.959.133,5.285,5.285,0,0,0-3.736,3.736c-.2.792-.2,22.782,0,23.574a5.286,5.286,0,0,0,3.736,3.736c.463.116,2.615.133,17.48.133,18.7,0,17.364.044,18.592-.56a5.791,5.791,0,0,0,2.2-2.2c.6-1.21.56-.489.56-12.9s.027-11.716-.56-12.9a5.792,5.792,0,0,0-2.2-2.2c-1.076-.534-1.29-.56-5.071-.56H47.232l-.383-1.183a15.916,15.916,0,0,0-.7-1.8,5.564,5.564,0,0,0-2.153-2.153c-1.156-.569-1.1-.56-6.894-.551C34.218-463.914,31.709-463.878,31.531-463.834Zm11,3.06c.8.409,1.005.747,1.646,2.686s.792,2.251,1.13,2.482c.231.16.507.169,4.341.214,4.065.044,4.092.044,4.555.258a2.32,2.32,0,0,1,1.237,1.308c.16.418.169.854.169,11.289v10.853l-.213.463a2.32,2.32,0,0,1-1.308,1.237c-.418.16-.961.169-16.937.169s-16.519-.009-16.937-.169a2.32,2.32,0,0,1-1.308-1.237l-.213-.463v-10.853c0-10.435.009-10.871.169-11.289a2.32,2.32,0,0,1,1.236-1.308c.463-.213.489-.213,4.555-.258,3.834-.045,4.11-.053,4.341-.214.338-.231.48-.543,1.121-2.473a11.284,11.284,0,0,1,.81-2.019,2.524,2.524,0,0,1,1.432-.89c.214-.044,2.473-.08,5.026-.071L42-461.04Z"
+              transform="translate(-15.775 463.925)" />
+            <path class="a"
+              d="M144.472-351.794a10.731,10.731,0,0,0-8.166,7.819,12.574,12.574,0,0,0-.116,4.795,10.645,10.645,0,0,0,8.371,8.371,12.575,12.575,0,0,0,4.795-.116,10.678,10.678,0,0,0,7.819-8.22,13.077,13.077,0,0,0,.053-4.083,10.721,10.721,0,0,0-8.62-8.62A13.693,13.693,0,0,0,144.472-351.794Zm4.172,2.971a9.118,9.118,0,0,1,2.98,1.53,7.77,7.77,0,0,1,2.091,9.26,7.753,7.753,0,0,1-10.559,3.629,7.934,7.934,0,0,1-4.03-5.124,8.875,8.875,0,0,1,0-3.558,8.251,8.251,0,0,1,2.651-4.234,9.679,9.679,0,0,1,2.953-1.512A8.436,8.436,0,0,1,148.644-348.823Z"
+              transform="translate(-125.318 361.937)" />
+            <path class="a"
+              d="M400.64-335.822a1.348,1.348,0,0,0-.64,1.245,1.309,1.309,0,0,0,1.423,1.423,1.309,1.309,0,0,0,1.423-1.423A1.309,1.309,0,0,0,401.423-336,1.439,1.439,0,0,0,400.64-335.822Z"
+              transform="translate(-365.821 347.38)" />
+          </g>
+        </svg>
+        <span>Webcam</span>
+      </div>
+
       <div class="source-icon-container icon-hover" onclick="document.getElementById('gallery-input').click()">
         <svg fill="#9ba29b" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 37.02 37"
           preserveAspectRatio="none">
@@ -285,9 +306,20 @@
         <input id="gallery-input" type="file" name="image" accept="image/*" style="display: none" />
       </div>
     </div>
+
     <div class="image-container hidden">
       <img src="" />
     </div>
+
+    <canvas class="canvas-container hidden"></canvas>
+
+    <div class="webcam-video-capture-container hidden">
+      <video class="webcam-video-container" autoplay></video>
+      <div class="webcam-capture hidden">
+        <div>Capture</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="spinner-container hidden">
@@ -298,17 +330,6 @@
   </button>
   <div class="error-container hidden"></div>
 </div>
-
-<!-- <div class="hidden">
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*">
-        <input type="submit" value="submit">
-    </form>
-    
-    <input class="camera-input hidden" type="file" accept="image/*" capture="capture">
-    
-    <button onclick="fetchJSON()">Fetch JSON from URL</button>
-</div> -->
 
 <script src="/static/js/index.js"></script>
 

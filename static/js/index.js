@@ -1,7 +1,3 @@
-// fetch('/api/pests')
-// .then(response => response.json())
-// .then(data => console.log(data))
-
 /* Submit for Prediction */
 // Data Validation
 let data = {
@@ -11,6 +7,7 @@ let data = {
 };
 
 const dataValidation = () => {
+  console.log("Here 1", data.image);
   if (
     data.stage == "" ||
     data.category == "" ||
@@ -76,21 +73,99 @@ document.querySelector(".predict-js").addEventListener("click", function () {
 });
 
 /* Mobile Detection */
-const cameraInput = document.querySelector(".sources-container > div");
+const cameraInput = document.querySelector("#camera-input-js");
+const webcamInput = document.querySelector("#webcam-input-js");
+
+const webcamVideoCaptureContainer = document.querySelector(
+  ".webcam-video-capture-container"
+);
+
+const webcamVideoContainer = document.querySelector(".webcam-video-container");
+const webcamCapture = document.querySelector(".webcam-capture");
+
+const canvasContainer = document.querySelector(".canvas-container");
+
+const imageContainer = document.querySelector(".image-container");
+const imageContainerImg = document.querySelector(".image-container > img");
 
 if (
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   )
 ) {
-  // mobile
-  console.log("Viewing on mobile device...");
+  // Mobile
   cameraInput.classList.remove("hidden");
+  webcamInput.classList.add("hidden");
 } else {
-  // Not mobile
-  console.log("Viewing on desktop device...");
+  // Desktop
   cameraInput.classList.add("hidden");
+  webcamInput.classList.remove("hidden");
 }
+
+/* Webcam Input Click */
+webcamInput.addEventListener("click", async function () {
+  // hide webcam video capture
+  webcamVideoCaptureContainer.classList.add("hidden");
+  // reset image container
+  document.querySelector(".image-container").classList.add("hidden");
+  document.querySelector(".image-container > img").src = "";
+
+  let stream = await navigator.mediaDevices.getUserMedia({
+    video: { width: 1280, height: 720 },
+    audio: false,
+  });
+  // show webcam video
+  webcamVideoContainer.srcObject = stream;
+  webcamVideoCaptureContainer.classList.remove("hidden");
+});
+
+/* Webcam Video Capture Container Mouseover */
+webcamVideoCaptureContainer.addEventListener("mouseover", function () {
+  // show capture
+  webcamCapture.classList.remove("hidden");
+});
+
+webcamVideoCaptureContainer.addEventListener("mouseout", function () {
+  // hide capture
+  webcamCapture.classList.add("hidden");
+});
+
+/* Webcam Capture Click */
+webcamCapture.addEventListener("click", async function () {
+  // hide webcam video capture container
+  webcamVideoCaptureContainer.classList.add("hidden");
+  // show image container
+  imageContainer.classList.remove("hidden");
+
+  canvasContainer
+    .getContext("2d")
+    .drawImage(
+      webcamVideoContainer,
+      0,
+      0,
+      canvasContainer.width,
+      canvasContainer.height
+    );
+
+  // get dataURL
+  let dataURL = canvasContainer.toDataURL("image/jpeg");
+  // set to image container img
+  imageContainerImg.src = dataURL;
+
+  // convert dataURL to blob
+  const blob = await (await fetch(dataURL)).blob();
+  // convert blob to file
+  const file = new File([blob], "webcam-capture.jpg", {
+    type: "image/jpeg",
+    lastModified: new Date(),
+  });
+
+  // save to data object
+  data.image = file;
+
+  // Data Validation
+  dataValidation();
+});
 
 /* Toggle Icons */
 const stageIcons = document.querySelectorAll(".stage-icon-container");
@@ -157,22 +232,24 @@ document
   .addEventListener("change", previewImage);
 
 function previewImage() {
-  document.querySelector(".image-container").classList.remove("hidden");
-  const preview = document.querySelector(".image-container > img");
+  // hide webcam video capture container
+  webcamVideoCaptureContainer.classList.add("hidden");
+  // show image container
+  imageContainer.classList.remove("hidden");
   const file = this.files[0];
   // Update Image data object
   data.image = file;
   const reader = new FileReader();
 
   reader.onloadend = function () {
-    preview.src = reader.result;
+    imageContainerImg.src = reader.result;
   };
 
   if (file.type.match("image.*")) {
     reader.readAsDataURL(file);
   } else {
     document.querySelector(".image-container").classList.add("hidden");
-    preview.src = "";
+    imageContainerImg.src = "";
   }
 
   // Data Validation

@@ -30,13 +30,6 @@ def home():
     else:
         return render_template("index.html")
 
-@app.route('/api/pests', methods = ['POST', 'GET'])
-@marshal_with(PestFields)
-def pests():
-    pests = Pests.query.all()
-    return pests
-
-
 @app.route('/submit', methods = ['POST'])
 def submit():
     if request.method == 'POST':
