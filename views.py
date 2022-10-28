@@ -14,25 +14,26 @@ PestFields = {
     'image': fields.String
 }
 
-@app.route('/', methods = ['POST', 'GET'])
+@app.route('/')
 def home():
-    if request.method == 'POST':
-        name = 'atlantic_ocean'
-        image = save_image(request)
+    # if request.method == 'POST':
+    #     name = 'atlantic_ocean'
+    #     image = save_image(request)
 
-        pest = Pests(name=name, image=image)
+    #     pest = Pests(name=name, image=image)
 
-        db.session.add(pest)
-        db.session.commit()
+    #     db.session.add(pest)
+    #     db.session.commit()
         
-        return render_template("index.html")
+    #     return render_template("index.html")
 
-    else:
-        return render_template("index.html")
+    
+    return render_template("index.html")
 
 @app.route('/submit', methods = ['POST'])
 def submit():
     if request.method == 'POST':
+        barangay = request.form['barangay']
         stage = request.form['stage']
         category = request.form['category']
         image = request.files['image']
@@ -62,19 +63,21 @@ def submit():
                 prediction = delta_e(image_filename)
 
             return {
+                'barangay': barangay,
                 'stage': stage,
                 'category': category,
                 'image_filename': image_filename, 
                 'prediction': prediction
                 }
 
-@app.route('/p/<image_filename>/<stage>/<category>/<prediction>', methods=['GET'])
-def p(image_filename, stage, category, prediction):
+@app.route('/p/<image_filename>/<stage>/<category>/<prediction>/<barangay>', methods=['GET'])
+def p(image_filename, stage, category, prediction, barangay):
     data = {
         'image_filename': image_filename,
         'stage': stage,
         'category': category,
-        'prediction': prediction
+        'prediction': prediction,
+        'barangay': barangay
     }
 
     if category == "Pest": 

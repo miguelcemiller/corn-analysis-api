@@ -1,14 +1,14 @@
-/* Submit for Prediction */
 // Data Validation
 let data = {
+  barangay: "",
   stage: "",
   category: "",
   image: null,
 };
 
 const dataValidation = () => {
-  console.log("Here 1", data.image);
   if (
+    data.barangay == "" ||
     data.stage == "" ||
     data.category == "" ||
     document.querySelector(".image-container").classList.contains("hidden")
@@ -23,6 +23,16 @@ const dataValidation = () => {
   }
 };
 
+/* Select Barangay */
+const selectBarangay = document.querySelector("#select-barangay-js");
+
+// set barangay to data object
+data.barangay = selectBarangay.value;
+
+selectBarangay.addEventListener("change", function () {
+  data.barangay = selectBarangay.value;
+});
+
 /* Predict */
 document.querySelector(".predict-js").addEventListener("click", function () {
   // show spinner
@@ -33,6 +43,7 @@ document.querySelector(".predict-js").addEventListener("click", function () {
   document.querySelector(".error-container").classList.add("hidden");
 
   let formData = new FormData();
+  formData.append("barangay", data.barangay);
   formData.append("stage", data.stage);
   formData.append("category", data.category);
   formData.append("image", data.image);
@@ -64,7 +75,7 @@ document.querySelector(".predict-js").addEventListener("click", function () {
         document.querySelector(".predict-js").classList.remove("hidden");
       } else {
         console.log(data);
-        window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}`;
+        window.location.href = `/p/${data.image_filename}/${data.stage}/${data.category}/${data.prediction}/${data.barangay}`;
       }
     })
     .catch((error) => {
