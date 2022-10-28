@@ -14,7 +14,7 @@ import colour
 
 def save_image(image, category):
     category = category.lower()+'s'
-    UPLOAD_PATH_PEST = join(dirname(realpath(__file__)), 'static\\images\\' + category)
+    UPLOAD_PATH_PEST = join(dirname(realpath(__file__)), 'static/images/' + category)
 
     if image.filename != '':
         filename = str(uuid4()) + secure_filename(image.filename)
@@ -36,15 +36,15 @@ def path_to_tensor(img_path):
 def predict_image(category, image_filename):
     category = category.lower()+'s'
 
-    pest_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\pest-classifier.hdf5'))
-    disease_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\disease-classifier.hdf5'))
+    pest_classifier = load_model(join(dirname(realpath(__file__)), 'static/hdf5/pest-classifier.hdf5'))
+    disease_classifier = load_model(join(dirname(realpath(__file__)), 'static/hdf5/disease-classifier.hdf5'))
 
     PEST_CATEGORIES = ['Asiatic Corn Borer', 'Black Armyworm', 'Common Cutworm', 'Corn Aphids', 'Corn Earworm', 'Corn Plant Hopper', 'Corn Seedling Maggot', 'Corn Semilooper', 'True Armyworm', 'White Grub']
 
     DISEASE_CATEGORIES = ['Aspergillus Ear Rot', 'Bacterial Stalk Rot', 'Banded Leaf and Sheath Blight', 'Common Corn Rust', 'Common Smut', 'Gray Leaf Spot', 'Leaf Blight', 'Philippine Corn Downey Mildew']
 
     # Image Path
-    img_path = join(dirname(realpath(__file__)), 'static\\images\\' + category + '\\') + image_filename
+    img_path = join(dirname(realpath(__file__)), 'static/images/' + category + '/') + image_filename
 
     x = path_to_tensor(img_path)
     x = np.array(x)
@@ -59,12 +59,12 @@ def predict_image(category, image_filename):
         return str(DISEASE_CATEGORIES[prediction])
 
 def predict_category(image, category):
-    pest_disease_nutrient_classifier = load_model(join(dirname(realpath(__file__)), 'static\\hdf5\\pest-disease-nutrient-classifier.hdf5'))
+    pest_disease_nutrient_classifier = load_model(join(dirname(realpath(__file__)), 'static/hdf5/pest-disease-nutrient-classifier.hdf5'))
 
     PEST_DISEASE_NUTRIENT_CATEGORIES = ['Disease', 'Nutrient', 'Pest']
 
     # save image to temp folder
-    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static\\images\\temp')
+    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static/images/temp')
 
     if image.filename != '':
         filename = str(uuid4()) + secure_filename(image.filename)
@@ -77,7 +77,7 @@ def predict_category(image, category):
         image_filename = filename
 
     # image path
-    img_path = join(dirname(realpath(__file__)), 'static\\images\\temp\\') + image_filename
+    img_path = join(dirname(realpath(__file__)), 'static/images/temp/') + image_filename
 
     x = path_to_tensor(img_path)
     x = np.array(x)
@@ -95,12 +95,12 @@ def delta_e(image_filename):
     IMG_SIZE = (200,200)
     NUTRIENT_CATEGORIES = ['2', '3', '4', '5']
 
-    img_A_path = join(dirname(realpath(__file__)), 'static\\images\\nutrients\\') + image_filename
+    img_A_path = join(dirname(realpath(__file__)), 'static/images/nutrients/') + image_filename
     img_B_paths = [
-    'static\\prediction-data\\images\\nutrients\\2.jpg',
-    'static\\prediction-data\\images\\nutrients\\3.jpg',
-    'static\\prediction-data\\images\\nutrients\\4.jpg',
-    'static\\prediction-data\\images\\nutrients\\5.jpg']
+    'static/prediction-data/images/nutrients/2.jpg',
+    'static/prediction-data/images/nutrients/3.jpg',
+    'static/prediction-data/images/nutrients/4.jpg',
+    'static/prediction-data/images/nutrients/5.jpg']
 
     img_A = cv2.imread(img_A_path).astype("float32") / 255
     img_A = cv2.resize(img_A, IMG_SIZE)
@@ -130,7 +130,9 @@ def face_detector(image):
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt.xml")
     
     # save image to temp folder
-    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static\\images\\temp')
+    UPLOAD_PATH_TEMP = join(dirname(realpath(__file__)), 'static/images/temp')
+
+    print('UPLOAD PATH TEMP', UPLOAD_PATH_TEMP)
 
     if image.filename != '':
         filename = str(uuid4()) + secure_filename(image.filename)
@@ -143,7 +145,7 @@ def face_detector(image):
         image_filename = filename
 
     # image path
-    img_path = join(dirname(realpath(__file__)), 'static\\images\\temp\\') + image_filename
+    img_path = join(dirname(realpath(__file__)), 'static/images/temp/') + image_filename
 
     # load color (BGR) image
     img = cv2.imread(img_path)
@@ -176,7 +178,7 @@ def face_detector(image):
 
 
 def clear_temp():
-    files = glob(join(dirname(realpath(__file__)), 'static\\images\\temp\\*'))
+    files = glob(join(dirname(realpath(__file__)), 'static/images/temp/*'))
     for f in files:
         os.remove(f)
 
